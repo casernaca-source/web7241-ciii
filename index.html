@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store | Ropa Moderna</title>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== RESET Y VARIABLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --accent: #e94560;
+            --light: #f5f5f5;
+            --white: #ffffff;
+            --gray: #666;
+            --shadow: 0 5px 20px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light);
+            color: var(--primary);
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .header-icons i {
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .header-icons i:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SLIDER ===== */
+        .hero-slider {
+            margin-top: 70px;
+            position: relative;
+            height: 85vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .slide:nth-child(1) {
+            background: linear-gradient(135deg, rgba(26,26,46,0.85), rgba(233,69,96,0.7)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600') center/cover no-repeat;
+        }
+
+        .slide:nth-child(2) {
+            background: linear-gradient(135deg, rgba(26,26,46,0.85), rgba(15,52,96,0.7)), url('https://images.unsplash.com/photo-1445205170230-053b83016050?w=1600') center/cover no-repeat;
+        }
+
+        .slide:nth-child(3) {
+            background: linear-gradient(135deg, rgba(26,26,46,0.85), rgba(233,69,96,0.6)), url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600') center/cover no-repeat;
+        }
+
+        .slide-content {
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+            max-width: 800px;
+            transform: translateY(20px);
+            animation: slideUp 1s ease forwards;
+        }
+
+        @keyframes slideUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .slide-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .slide-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            transition: var(--transition);
+            border: 2px solid var(--accent);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(233,69,96,0.4);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+            border-color: white;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        .slider-arrow:hover {
+            background: var(--accent);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .arrow-prev { left: 20px; }
+        .arrow-next { right: 20px; }
+
+        /* ===== SECCIÓN CATEGORÍAS ===== */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            font-size: 1rem;
+        }
+
+        .section-title span {
+            color: var(--accent);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            position: relative;
+            height: 350px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .category-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 1.5rem;
+            background: linear-gradient(transparent, rgba(26,26,46,0.9));
+            color: white;
+        }
+
+        .category-overlay h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.3rem;
+        }
+
+        .category-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* ===== SECCIÓN PRODUCTOS ===== */
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .products-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            position: relative;
+            height: 320px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-actions {
+            position: absolute;
+            top: 15px;
+            right: -60px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-actions {
+            right: 15px;
+        }
+
+        .product-actions button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--white);
+            color: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .product-actions button:hover {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .product-category {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .product-price .old-price {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+            font-weight: 400;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .add-to-cart:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(233,69,96,0.3);
+        }
+
+        /* ===== BANNER SLIDER SECUNDARIO ===== */
+        .promo-slider {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            margin: 3rem 0;
+            border-radius: 20px;
+        }
+
+        .promo-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 10%;
+        }
+
+        .promo-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .promo-slide:nth-child(1) {
+            background: linear-gradient(90deg, rgba(26,26,46,0.9) 0%, rgba(26,26,46,0.4) 100%), url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600') center/cover;
+        }
+
+        .promo-slide:nth-child(2) {
+            background: linear-gradient(90deg, rgba(233,69,96,0.9) 0%, rgba(233,69,96,0.3) 100%), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600') center/cover;
+        }
+
+        .promo-slide:nth-child(3) {
+            background: linear-gradient(90deg, rgba(15,52,96,0.9) 0%, rgba(15,52,96,0.3) 100%), url('https://images.unsplash.com/photo-1479064555552-3ef4979f8908?w=1600') center/cover;
+        }
+
+        .promo-content {
+            color: white;
+            max-width: 500px;
+        }
+
+        .promo-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .promo-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .promo-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 10%;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .promo-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .promo-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-col p {
+            opacity: 0.7;
+            line-height: 1.8;
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .newsletter {
+            display: flex;
+            margin-top: 1rem;
+        }
+
+        .newsletter input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .newsletter button {
+            padding: 0.8rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .newsletter button:hover {
+            background: #c73650;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            opacity: 0.6;
+            font-size: 0.85rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .slide-content h1 { font-size: 2.5rem; }
+            .promo-content h2 { font-size: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--white);
+                transition: var(--transition);
+                padding: 2rem;
+                box-shadow: var(--shadow);
+            }
+
+            nav.open { left: 0; }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            nav a { font-size: 1.2rem; }
+
+            .hero-slider { height: 70vh; }
+            .slide-content h1 { font-size: 2rem; letter-spacing: 2px; }
+            .slide-content p { font-size: 1rem; }
+            
+            .section { padding: 3rem 1.5rem; }
+            .section-title { font-size: 1.7rem; }
+            
+            .promo-slider { height: 350px; }
+            .promo-slide { padding: 0 8%; }
+            .promo-content h2 { font-size: 1.6rem; }
+            
+            .slider-arrow { width: 40px; height: 40px; font-size: 1rem; }
+            .arrow-prev { left: 10px; }
+            .arrow-next { right: 10px; }
+
+            .products-header { flex-direction: column; align-items: flex-start; }
+        }
+
+        @media (max-width: 480px) {
+            .header-container { padding: 1rem; }
+            .logo { font-size: 1.4rem; }
+            .header-icons { gap: 1rem; }
+            
+            .hero-slider { height: 60vh; margin-top: 65px; }
+            .slide-content h1 { font-size: 1.6rem; }
+            .slide-content p { font-size: 0.9rem; }
+            .btn { padding: 0.8rem 1.8rem; font-size: 0.85rem; }
+            
+            .section-title { font-size: 1.4rem; letter-spacing: 2px; }
+            
+            .products-grid { grid-template-columns: 1fr; }
+            .categories-grid { grid-template-columns: 1fr; }
+            
+            .promo-content h2 { font-size: 1.3rem; }
+            .promo-content p { font-size: 0.9rem; }
+            
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-col h3::after { left: 50%; transform: translateX(-50%); }
+            .social-links { justify-content: center; }
+        }
+
+        /* Animación de entrada */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">FASHION<span>.</span></a>
+            
+            <nav id="nav">
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#categorias">Categorías</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#ofertas">Ofertas</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-user"></i>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HERO SLIDER ===== -->
+    <section class="hero-slider" id="inicio">
+        <div class="slide active">
+            <div class="slide-content">
+                <h1>Nueva Colección</h1>
+                <p>Descubre las últimas tendencias en moda para esta temporada</p>
+                <a href="#productos" class="btn">Comprar Ahora</a>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Estilo Único</h1>
+                <p>Prendas exclusivas diseñadas para destacar tu personalidad</p>
+                <a href="#productos" class="btn">Ver Colección</a>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Hasta 50% OFF</h1>
+                <p>Aprovecha nuestras ofertas especiales por tiempo limitado</p>
+                <a href="#ofertas" class="btn">Ver Ofertas</a>
+            </div>
+        </div>
+
+        <button class="slider-arrow arrow-prev" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-arrow arrow-next" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+
+        <div class="slider-dots" id="sliderDots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+    </section>
+
+    <!-- ===== CATEGORÍAS ===== -->
+    <section class="section" id="categorias">
+        <h2 class="section-title fade-in">Nuestras <span>Categorías</span></h2>
+        <p class="section-subtitle fade-in">Encuentra tu estilo perfecto</p>
+
+        <div class="categories-grid">
+            <div class="category-card fade-in">
+                <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600" alt="Mujer">
+                <div class="category-overlay">
+                    <h3>Mujer</h3>
+                    <p>120+ productos</p>
+                </div>
+            </div>
+            <div class="category-card fade-in">
+                <img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=600" alt="Hombre">
+                <div class="category-overlay">
+                    <h3>Hombre</h3>
+                    <p>95+ productos</p>
+                </div>
+            </div>
+            <div class="category-card fade-in">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600" alt="Accesorios">
+                <div class="category-overlay">
+                    <h3>Accesorios</h3>
+                    <p>80+ productos</p>
+                </div>
+            </div>
+            <div class="category-card fade-in">
+                <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=600" alt="Calzado">
+                <div class="category-overlay">
+                    <h3>Calzado</h3>
+                    <p>60+ productos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRODUCTOS ===== -->
+    <section class="section" id="productos">
+        <div class="products-header fade-in">
+            <div>
+                <h2 class="section-title" style="text-align:left; margin-bottom:0;">Productos <span>Destacados</span></h2>
+                <p style="color:var(--gray); margin-top:0.3rem;">Lo más vendido de la temporada</p>
+            </div>
+            <div class="products-filter">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="mujer">Mujer</button>
+                <button class="filter-btn" data-filter="hombre">Hombre</button>
+                <button class="filter-btn" data-filter="accesorios">Accesorios</button>
+            </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Los productos se generan con JavaScript -->
+        </div>
+    </section>
+
+    <!-- ===== BANNER SLIDER SECUNDARIO ===== -->
+    <section class="section" id="ofertas">
+        <div class="promo-slider">
+            <div class="promo-slide active">
+                <div class="promo-content">
+                    <h2>Rebajas de Verano</h2>
+                    <p>Hasta 50% de descuento en toda la colección de verano</p>
+                    <a href="#productos" class="btn">Aprovechar</a>
+                </div>
+            </div>
+            <div class="promo-slide">
+                <div class="promo-content">
+                    <h2>Envío Gratis</h2>
+                    <p>En compras superiores a $50. Sin código necesario.</p>
+                    <a href="#productos" class="btn">Comprar Ya</a>
+                </div>
+            </div>
+            <div class="promo-slide">
+                <div class="promo-content">
+                    <h2>Nueva Temporada</h2>
+                    <p>Descubre las prendas que marcarán tendencia este año</p>
+                    <a href="#productos" class="btn">Explorar</a>
+                </div>
+            </div>
+
+            <div class="promo-dots" id="promoDots">
+                <span class="promo-dot active" data-slide="0"></span>
+                <span class="promo-dot" data-slide="1"></span>
+                <span class="promo-dot" data-slide="2"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="contacto">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Fashion.</h3>
+                <p>Tu tienda de moda online con las mejores tendencias y calidad. Envíos a todo el país.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#categorias">Categorías</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#ofertas">Ofertas</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Atención</h3>
+                <ul>
+                    <li><a href="#">Envíos y devoluciones</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Suscríbete y recibe un 10% de descuento en tu primera compra.</p>
+                <form class="newsletter" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte!');">
+                    <input type="email" placeholder="Tu email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Fashion Store. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== DATOS DE PRODUCTOS =====
+        const productos = [
+            { id: 1, nombre: "Blazer Elegante", categoria: "mujer", precio: 89.99, precioOld: 120, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500", badge: "Nuevo" },
+            { id: 2, nombre: "Camisa Casual", categoria: "hombre", precio: 45.99, precioOld: null, img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500", badge: null },
+            { id: 3, nombre: "Vestido Floral", categoria: "mujer", precio: 65.99, precioOld: 85, img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500", badge: "-25%" },
+            { id: 4, nombre: "Chaqueta de Cuero", categoria: "hombre", precio: 149.99, precioOld: null, img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500", badge
